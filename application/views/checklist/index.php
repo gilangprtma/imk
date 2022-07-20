@@ -18,34 +18,43 @@
                                     <thead>
                                         <tr>
                                             <th>Nopol</th>
-                                            <th>Tanggal Checklist</th>
-                                            <th>Temuan</th>
-                                            <th>Kategori</th>
+                                            <th>Tanggal Input</th>
                                             <th>Status</th>
+                                            <th>Tanggal Selesai</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($checklist as $c): ?>
-                                            <tr>
-                                                <td><?= $c['id_mobil'];?></td>
-                                                <td><?= $c['tanggal_checklist'];?></td>
-                                                <td><?= $c['temuan'];?></td>
-                                                <td><?= $c['kategori'];?></td>
-                                                <td>
-                                                    <?php if($c['batas'] >= date('Y-m-d')){
-                                                        echo "Masih ada Temuan";
-                                                    }else{
-                                                        echo "Blokir";
-                                                    }?>
-                                                </td>
-                                                <td>
-                                                    <a href="<?= base_url('checklist/closed/' . $c['id']); ?>" class="text-success">Closed</a> |
-                                                    <a href="<?= base_url('checklist/editChecklist/' . $c['id']); ?>" class="text-warning">Edit</a> |
-                                                    <a href="<?= base_url('checklist/delete/' . $c['id']); ?>" onclick="return confirm('Are you sure ?')" class="text-danger">Delete</a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
+                                        <?php if ($checklist) : ?>
+                                            <?php foreach ($checklist as $c): ?>
+                                                <tr>
+                                                    <td><?= $c['nopol']; ?></td>
+                                                    <td><?= $c['checklist_created_datetime_label']; ?></td>
+                                                    <td>
+                                                        <?php if ($c['checklist_is_close'] == 0) : ?>
+                                                            <h6><span class="badge badge-danger"><?= $c['checklist_is_close_label']; ?></span></h6>
+                                                        <?php else : ?>
+                                                            <h6><span class="badge badge-success"><?= $c['checklist_is_close_label']; ?></span></h6>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td><?= $c['checklist_close_datetime_label']; ?></td>
+                                                    <!-- <td>
+                                                        <?php if($c['batas'] >= date('Y-m-d')){
+                                                            echo "Masih ada Temuan";
+                                                        }else{
+                                                            echo "Blokir";
+                                                        }?>
+                                                    </td> -->
+                                                    <td>
+                                                        <!-- <a href="<?= base_url('checklist/closed/' . $c['checklist_id']); ?>" class="text-success">Closed</a> |
+                                                        <a href="<?= base_url('checklist/editChecklist/' . $c['checklist_id']); ?>" class="text-warning">Edit</a> |
+                                                        <a href="<?= base_url('checklist/delete/' . $c['checklist_id']); ?>" onclick="return confirm('Are you sure ?')" class="text-danger">Delete</a> -->
+
+                                                        <a href="<?= base_url('checklist/closed/' . $c['checklist_id']); ?>" class="">Detail</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>

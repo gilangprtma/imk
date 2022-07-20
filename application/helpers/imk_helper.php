@@ -22,3 +22,45 @@ function is_logged_in()
         }
     }
 }
+
+function errorValidation($msg = null, $data = array()) {
+    header("Content-Type: application/json");
+    header("HTTP/1.1 400 Bad Request");
+
+    echo json_encode(array(
+        "status" => 400,
+        "error_code" => 'error_validation',
+        "msg" => is_null($msg) ? 'Form belum valid' : $msg,
+        "data" => empty($data) ? (object) array() : (object) $data,
+    ));
+
+    exit;
+}
+
+function errorFailed($msg = null, $data = array()) {
+    header("Content-Type: application/json");
+    header("HTTP/1.1 400 Bad Request");
+
+    echo json_encode(array(
+        "status" => 400,
+        "error_code" => 'error_failed',
+        "msg" => is_null($msg) ? 'Gagal' : $msg,
+        "data" => empty($data) ? (object) array() : (object) $data,
+    ));
+
+    exit;
+}
+
+function responseSuccess($msg = null, $data = array(), $err_code = false) {
+    header("Content-Type: application/json");
+    header("HTTP/1.1 200 Success");
+
+    echo json_encode(array(
+        'status' => 200,
+        'error_code' => $err_code,
+        'msg' => is_null($msg) ? 'Success' : $msg,
+        'data' => (object) $data
+    ));
+
+    exit;
+}

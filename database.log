@@ -1,0 +1,21 @@
+------------
+2022-07-19
+------------
+
+DROP TABLE `checklist`;
+
+CREATE TABLE `checklist` ( `checklist_id` INT NOT NULL AUTO_INCREMENT ,  `checklist_mobiltanki_id` INT NULL DEFAULT '0' ,  `checklist_created_datetime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,  `checklist_updated_datetime` DATETIME NULL ,    PRIMARY KEY  (`checklist_id`)) ENGINE = InnoDB;
+
+ALTER TABLE `checklist` ADD INDEX( `checklist_mobiltanki_id`); 
+
+CREATE TABLE `checklist_detail` ( `checklist_detail_id` INT NOT NULL AUTO_INCREMENT ,  `checklist_detail_checklist_id` INT NULL DEFAULT '0' ,  `checklist_detail_temuan` VARCHAR(255) NULL ,  `checklist_detail_kategori` VARCHAR(50) NULL ,  `checklist_detail_batas_temuan_hari` DATE NULL ,  `checklist_detail_input_datetime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,  `checklist_detail_close_datetime` DATETIME NULL ,    PRIMARY KEY  (`checklist_detail_id`)) ENGINE = InnoDB;
+
+ALTER TABLE `checklist_detail` ADD INDEX( `checklist_detail_checklist_id`); 
+
+ALTER TABLE `checklist` ADD `checklist_is_close` TINYINT NULL DEFAULT '0' COMMENT '0 = open, 1 = closed' AFTER `checklist_updated_datetime`, ADD `checklist_close_datetime` DATETIME NULL DEFAULT NULL AFTER `checklist_is_close`;
+
+ALTER TABLE `checklist` ADD INDEX( `checklist_is_close`); 
+
+ALTER TABLE `checklist_detail` ADD `checklist_detail_is_close` TINYINT NULL DEFAULT '0' COMMENT '0 = open, 1 = close' AFTER `checklist_detail_input_datetime`; 
+
+ALTER TABLE `checklist_detail` ADD INDEX( `checklist_detail_is_close`); 

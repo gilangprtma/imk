@@ -5,13 +5,13 @@ class Checklist_model extends CI_Model
 {
     public function getListCheck()
     {
-        $query = "SELECT * FROM `checklist` ORDER BY `id` DESC";
+        $query = "SELECT * FROM `checklist` ORDER BY `checklist_id` DESC";
         return $this->db->query($query)->result_array();
     }
 
     public function getById($id)
     {
-        return $this->db->get_where('checklist', ['id' => $id])->row_array();
+        return $this->db->get_where('checklist', ['checklist_id' => $id])->row_array();
     }
     
     public function getMT()
