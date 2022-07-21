@@ -1,7 +1,7 @@
 <?php
-    // echo '<pre>';
-    // print_r($close);
-    // die();
+// echo '<pre>';
+// print_r($close);
+// die();
 ?>
 
 <link rel="stylesheet" href="<?= base_url(); ?>assets/bundles/izitoast/css/iziToast.min.css">
@@ -20,57 +20,57 @@
                 <div class="col-12">
 
                     <?php if ($close) : ?>
-                    
-                    <div class="card">
-                        <form method="POST" action="#">
-                            <div class="card-header">
-                                <h4>Closed Checklist</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <!-- <input type="hidden" name="id" value="<?= $close['checklist_id']; ?>"> -->
-                                    <div class="form-group col-md-4">
-                                        <label>Nopol</label>
-                                        <input type="text" class="form-control" name="nopol" value="<?= $close['nopol']; ?>" disabled="">
-                                    </div>
+
+                        <div class="card">
+                            <form method="POST" action="#">
+                                <div class="card-header">
+                                    <h4>Closed Checklist</h4>
                                 </div>
-
-                                <?php if ($close['detail']) : ?>
-                                    <?php foreach ($close['detail'] AS $key => $value) : ?>
-                                        <div class="form-row after-add-more">
-                                            <div class="form-group2 col-md-5">
-                                                <label>Temuan</label>
-                                                <input type="text" class="form-control" name="temuan" value="<?= $value['checklist_detail_temuan']; ?>" disabled="">
-                                            </div>
-                                            <div class="form-group2 col-md-3">
-                                                <label>Kategori</label>
-                                                <input type="text" class="form-control" name="kategori" value="<?= $value['checklist_detail_kategori']; ?>" disabled="">
-                                            </div>
-                                            <div class="form-group2 col-md-2">
-                                                <label>Batas Temuan Hari</label>
-                                                <input type="text" class="form-control" name="batas" value="<?= $value['checklist_detail_batas_temuan_hari']; ?>" disabled="">
-                                            </div>
-                                            <div class="form-group2 col-md-2">
-                                                <?php if ($value['checklist_detail_is_close'] == 0) : ?>
-                                                    <label></label>
-                                                    <div class="buttons mt-2">
-                                                        <button type="button" onClick="updateStatus('<?= $value['checklist_detail_id']; ?>')" class="btn btn-icon btn-success add-more" title="Tandai sudah selesai"><i class="fas fa-check"></i></button>
-                                                    </div>
-                                                <?php else : ?>
-                                                    <label>Tanggal Selesai</label>
-                                                    <input type="text" class="form-control" name="batas" value="<?= $value['checklist_close_datetime_label']; ?>" disabled="">
-                                                <?php endif; ?>
-                                            </div>
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <!-- <input type="hidden" name="id" value="<?= $close['checklist_id']; ?>"> -->
+                                        <div class="form-group col-md-4">
+                                            <label>Nopol</label>
+                                            <input type="text" class="form-control" name="nopol" value="<?= $close['nopol']; ?>" disabled="">
                                         </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    </div>
 
-                            </div>
-                            <!-- <div class="card-footer text-right">
+                                    <?php if ($close['detail']) : ?>
+                                        <?php foreach ($close['detail'] as $key => $value) : ?>
+                                            <div class="form-row after-add-more">
+                                                <div class="form-group2 col-md-5">
+                                                    <label>Temuan</label>
+                                                    <input type="text" class="form-control" name="temuan" value="<?= $value['checklist_detail_temuan']; ?>" disabled="">
+                                                </div>
+                                                <div class="form-group2 col-md-3">
+                                                    <label>Kategori</label>
+                                                    <input type="text" class="form-control" name="kategori" value="<?= $value['checklist_detail_kategori']; ?>" disabled="">
+                                                </div>
+                                                <div class="form-group2 col-md-2">
+                                                    <label>Batas Temuan Hari</label>
+                                                    <input type="text" class="form-control" name="batas" value="<?= date('d F Y', strtotime($value['checklist_detail_batas_temuan_hari'])); ?>" disabled="">
+                                                </div>
+                                                <div class="form-group2 col-md-2">
+                                                    <?php if ($value['checklist_detail_is_close'] == 0) : ?>
+                                                        <label></label>
+                                                        <div class="buttons mt-2">
+                                                            <button type="button" onClick="updateStatus('<?= $value['checklist_detail_id']; ?>')" class="btn btn-icon btn-success add-more" title="Tandai sudah selesai"><i class="fas fa-check"></i></button>
+                                                        </div>
+                                                    <?php else : ?>
+                                                        <label>Tanggal Selesai</label>
+                                                        <input type="text" class="form-control" name="batas" value="<?= date('d F Y', strtotime($value['checklist_close_datetime_label'])); ?>" disabled="">
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+
+                                </div>
+                                <!-- <div class="card-footer text-right">
                                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                             </div> -->
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
                     <?php else : ?>
                         <div class="card">
@@ -110,7 +110,7 @@
                     position: 'topRight'
                 });
 
-                setTimeout(function () {
+                setTimeout(function() {
                     location.reload();
                 }, 3000);
             },
@@ -123,11 +123,9 @@
                     position: 'topRight'
                 });
             },
-            complete(xhr, status) {
-            }
+            complete(xhr, status) {}
         });
     }
 
-    $(document).ready(function() {
-    });
+    $(document).ready(function() {});
 </script>
