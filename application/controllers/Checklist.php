@@ -93,8 +93,7 @@ class Checklist extends CI_Controller
                 DATE(checklist_created_datetime) AS checklist_created_datetime_label, 
                 CASE
                     WHEN checklist_is_close = 0 THEN 'Belum Selesai'
-                    WHEN checklist_is_close = 1 THEN 'Selesai'
-                    ELSE 'Blokir'
+                    ELSE 'Selesai'
                 END AS checklist_is_close_label,
                 CASE 
                     WHEN checklist_close_datetime IS NULL THEN '-'
@@ -116,9 +115,8 @@ class Checklist extends CI_Controller
                 SELECT 
                     *,
                     CASE
-                        WHEN checklist_is_close = 0 THEN 'Belum Selesai'
-                        WHEN checklist_is_close = 1 THEN 'Selesai'
-                        ELSE 'Blokir'
+                        WHEN checklist_detail_is_close = 0 THEN 'Belum Selesai'
+                        ELSE 'Selesai'
                     END AS checklist_detail_is_close_label,
                     CASE 
                         WHEN checklist_detail_close_datetime IS NULL THEN '-'
