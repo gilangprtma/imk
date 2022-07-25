@@ -56,6 +56,11 @@
                                                         <div class="buttons mt-2">
                                                             <button type="button" onClick="updateStatus('<?= $value['checklist_detail_id']; ?>')" class="btn btn-icon btn-success add-more" title="Tandai sudah selesai"><i class="fas fa-check"></i></button>
                                                         </div>
+                                                    <?php elseif($value['checklist_detail_is_close'] == 2) : ?>
+                                                        <label></label>
+                                                        <div class="buttons mt-2">
+                                                            <button type="button" onClick="updateStatus('<?= $value['checklist_detail_id']; ?>')" class="btn btn-icon btn-success add-more" title="Tandai sudah selesai"><i class="fas fa-check"></i></button>
+                                                        </div>
                                                     <?php else : ?>
                                                         <label>Tanggal Selesai</label>
                                                         <input type="text" class="form-control" name="batas" value="<?= date('d F Y', strtotime($value['checklist_close_datetime_label'])); ?>" disabled="">

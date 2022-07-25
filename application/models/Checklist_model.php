@@ -9,6 +9,12 @@ class Checklist_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getBatas()
+    {
+        $query = "SELECT * FROM `checklist_detail` ORDER BY `checklist_detail_batas_temuan_hari`";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getById($id)
     {
         return $this->db->get_where('checklist', ['checklist_id' => $id])->row_array();

@@ -27,8 +27,9 @@ class Checklist extends CI_Controller
                 *,
                 DATE(checklist_created_datetime) AS checklist_created_datetime_label, 
                 CASE
-                    WHEN checklist_is_close = 0 THEN 'Belum Selesai'
-                    ELSE 'Selesai'
+                    WHEN checklist_is_close = 0 THEN 'Masih Ada Temuan'
+                    WHEN checklist_is_close = 1 THEN 'Ready'
+                    ELSE 'Blokir'
                 END AS checklist_is_close_label,
                 CASE 
                     WHEN checklist_close_datetime IS NULL THEN '-'
@@ -92,8 +93,9 @@ class Checklist extends CI_Controller
                 *,
                 DATE(checklist_created_datetime) AS checklist_created_datetime_label, 
                 CASE
-                    WHEN checklist_is_close = 0 THEN 'Belum Selesai'
-                    ELSE 'Selesai'
+                    WHEN checklist_is_close = 0 THEN 'Masih Ada Temuan'
+                    WHEN checklist_is_close = 1 THEN 'Ready'
+                    ELSE 'Blokir'
                 END AS checklist_is_close_label,
                 CASE 
                     WHEN checklist_close_datetime IS NULL THEN '-'
@@ -116,7 +118,8 @@ class Checklist extends CI_Controller
                     *,
                     CASE
                         WHEN checklist_detail_is_close = 0 THEN 'Belum Selesai'
-                        ELSE 'Selesai'
+                        WHEN checklist_detail_is_close = 1 THEN 'Selesai'
+                        ELSE 'Blokir'
                     END AS checklist_detail_is_close_label,
                     CASE 
                         WHEN checklist_detail_close_datetime IS NULL THEN '-'
@@ -306,6 +309,27 @@ class Checklist extends CI_Controller
                     responseSuccess('Berhasil menyimpan data', $response);
                 }
             }
+        }
+    }
+
+    public function blok()
+    {
+        $sql = "SELECT * FROM checklist_detail WHERE checklist_detail_batas_temuan_hari";
+        $query = $this->db->query($sql);
+
+        $tanggalBatas = date('Y-m-d');
+        $queryBatas = $this->db->query("SELECT * FROM checklist_detail WHERE 
+        checklist_detail_batas_temuan_hari < '$tanggalBatas' AND checklist_detail_is_close=0");
+        if($queryBatas->num_rows()>0){
+            foreach($queryBatas->result() as $idu=>$valu){
+                $data = [
+                    'checklist_detail_is_close' => '2'
+                ];
+                $this->db->where('checklist_detail_id',$valu->checklist_detail_id);
+                $this->db->update('checklist_detail', $data);
+            }
+        }else{
+            echo "tidak ada";
         }
     }
 }
