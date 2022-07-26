@@ -49,6 +49,9 @@
                                                 <div class="form-group2 col-md-2">
                                                     <label>Batas Temuan Hari</label>
                                                     <input type="text" class="form-control" name="batas" value="<?= date('d F Y', strtotime($value['checklist_detail_batas_temuan_hari'])); ?>" disabled="">
+                                                    <?php if($value['checklist_detail_is_close'] == 2) : ?>
+                                                    <small class="text-danger pl-0">Blokir</small>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div class="form-group2 col-md-2">
                                                     <?php if ($value['checklist_detail_is_close'] == 0) : ?>

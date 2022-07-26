@@ -32,12 +32,15 @@
                                                     <td><?= date('d F Y', strtotime($c['checklist_created_datetime_label'])); ?></td>
                                                     <td>
                                                         <?php if ($c['checklist_is_close'] == 0) : ?>
-                                                            <h6><span class="badge badge-danger"><?= $c['checklist_is_close_label']; ?></span></h6>
-                                                        <?php else : ?>
+                                                            <h6><span class="badge badge-warning"><?= $c['checklist_is_close_label']; ?></span></h6>
+                                                        <?php elseif ($c['checklist_is_close'] == 1) : ?>
                                                             <h6><span class="badge badge-success"><?= $c['checklist_is_close_label']; ?></span></h6>
+                                                        <?php else : ?>
+                                                            <h6><span class="badge badge-danger"><?= $c['checklist_is_close_label']; ?></span></h6>
                                                         <?php endif; ?>
                                                     </td>
-                                                    <td><?= date('d F Y', strtotime($c['checklist_close_datetime_label'])); ?></td>
+                                                    <!-- <td><?= date('d F Y', strtotime($c['checklist_close_datetime_label'])); ?></td> -->
+                                                    <td><?= $c['checklist_close_datetime_label']; ?></td>
                                                     <!-- <td>
                                                         <?php if($c['batas'] >= date('Y-m-d')){
                                                             echo "Masih ada Temuan";
