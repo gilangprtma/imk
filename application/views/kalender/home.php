@@ -6,13 +6,17 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Kalender Keur Mobil Tanki FT Rewulu</h4><br/>
-                            <a href="../monitoring" class="btn btn-primary mb-3">Kembali</a>
                         </div>
                         <div class="card-body">
                             <div class="fc-overflow">
                                 <div id="myEvent"></div>
                             </div>
                         </div>
+                        <!--<div class="card-body">
+                            <div class="fc-overflow">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

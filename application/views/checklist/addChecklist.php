@@ -40,6 +40,7 @@
                                             <option value="Lampu-lampu">Lampu - Lampu</option>
                                             <option value="Ijk Baut">Ijk Baut</option>
                                             <option value="Bracket">Bracket & Seal</option>
+                                            <option value="Lain-lain">Lain - Lain</option>
                                         </select>
                                         <?= form_error('kategori', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>

@@ -6,6 +6,14 @@ class Monitoring_model extends CI_Model
     public function getListMobil()
     {
         $query = "SELECT * FROM `mobiltanki` ORDER BY `id` DESC";
+
+        //$this->db->order_by('id', 'ASC');
+        //return $this->db->from('mobiltanki')
+        //    ->join('checklist', 'checklist.checklist_mobiltanki_id = mobiltanki.id')
+            //->where('status', 'Pending')
+        //    ->get()
+        //    ->result();
+
         return $this->db->query($query)->result_array();
     }
 

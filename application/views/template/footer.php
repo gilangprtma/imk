@@ -30,6 +30,23 @@
 <script src="<?= base_url('assets/js/scripts.js'); ?>"></script>
 <!-- Custom JS File -->
 <script src="<?= base_url('assets/js/custom.js'); ?>"></script>
+<!-- Start Calendar-->
+<script>
+    $(document).ready(function() {
+        var calendar = $('#myEvent').fullCalendar({
+            editable: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: "<?= base_url('kalender/load'); ?>",
+            selectable: true,
+            selectHelper: true,
+        });
+    });
+</script>
+<!-- End Calendar-->
 </body>
 
 </html>

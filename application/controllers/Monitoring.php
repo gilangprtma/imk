@@ -16,6 +16,9 @@ class Monitoring extends CI_Controller
         $data['title'] = 'Monitoring Mobil Tanki';
 
         $this->load->model('Monitoring_model', 'listmobil');
+
+        //$data = $this->Monitoring_model->getListMobil->result();
+
         $data['listmobil'] = $this->listmobil->getListMobil();
         $data['hitungMT'] = $this->Monitoring_model->jumlahMT();
         $data['mtready'] = $this->Monitoring_model->mtReady();

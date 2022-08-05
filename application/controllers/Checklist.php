@@ -251,29 +251,29 @@ class Checklist extends CI_Controller
             errorFailed("Data tidak ditemukan", array());
         } else {
             //if ($get_checklist_detail->row()->checklist_detail_is_close != "0") {
-                //errorFailed("Data sudah berstatus selesai", array());
+            //errorFailed("Data sudah berstatus selesai", array());
             //} else {
-                $is_error = false;
-                $msgError = "";
+            $is_error = false;
+            $msgError = "";
 
-                $response = array();
-                $this->db->trans_begin();
+            $response = array();
+            $this->db->trans_begin();
 
-                try {
-                    $data_update = array(
-                        'checklist_detail_is_close' => 1,
-                        'checklist_detail_close_datetime' => $datetime,
-                    );
+            try {
+                $data_update = array(
+                    'checklist_detail_is_close' => 1,
+                    'checklist_detail_close_datetime' => $datetime,
+                );
 
-                    $this->db->where('checklist_detail_id', $id);
-                    $this->db->update('checklist_detail', $data_update);
+                $this->db->where('checklist_detail_id', $id);
+                $this->db->update('checklist_detail', $data_update);
 
-                    if ($this->db->affected_rows() < 0) {
-                        throw new Exception("Gagal menyimpan data");
-                    } else {
-                        $checklist_id = $get_checklist_detail->row()->checklist_detail_checklist_id;
+                if ($this->db->affected_rows() < 0) {
+                    throw new Exception("Gagal menyimpan data");
+                } else {
+                    $checklist_id = $get_checklist_detail->row()->checklist_detail_checklist_id;
 
-                        $get_checklist_detail = $this->db->query("
+                    $get_checklist_detail = $this->db->query("
                             SELECT *
                             FROM checklist_detail 
                             WHERE 1
@@ -282,42 +282,42 @@ class Checklist extends CI_Controller
                             -- LIMIT 1
                         ");
 
-                        if ($get_checklist_detail->num_rows() > 0) {
-                            $is_done = true;
+                    if ($get_checklist_detail->num_rows() > 0) {
+                        $is_done = true;
 
-                            foreach ($get_checklist_detail->result() as $key => $value) {
-                                if ($value->checklist_detail_is_close != '1') {
-                                    $is_done = false;
-                                }
+                        foreach ($get_checklist_detail->result() as $key => $value) {
+                            if ($value->checklist_detail_is_close != '1') {
+                                $is_done = false;
                             }
+                        }
 
-                            if ($is_done) {
-                                $data_update_checklist = array(
-                                    'checklist_is_close' => 1,
-                                    'checklist_close_datetime' => $datetime,
-                                );
+                        if ($is_done) {
+                            $data_update_checklist = array(
+                                'checklist_is_close' => 1,
+                                'checklist_close_datetime' => $datetime,
+                            );
 
-                                $this->db->where('checklist_id', $checklist_id);
-                                $this->db->update('checklist', $data_update_checklist);
+                            $this->db->where('checklist_id', $checklist_id);
+                            $this->db->update('checklist', $data_update_checklist);
 
-                                if ($this->db->affected_rows() < 0) {
-                                    throw new Exception("Gagal update data");
-                                }
+                            if ($this->db->affected_rows() < 0) {
+                                throw new Exception("Gagal update data");
                             }
                         }
                     }
-                } catch (Exception $exc) {
-                    $is_error = true;
-                    $msgError = $exc->getMessage();
                 }
+            } catch (Exception $exc) {
+                $is_error = true;
+                $msgError = $exc->getMessage();
+            }
 
-                if ($this->db->trans_status() === false || $is_error === true) {
-                    $this->db->trans_rollback();
-                    errorFailed("Gagal menyimpan data. " . $msgError);
-                } else {
-                    $this->db->trans_commit();
-                    responseSuccess('Berhasil menyimpan data', $response);
-                }
+            if ($this->db->trans_status() === false || $is_error === true) {
+                $this->db->trans_rollback();
+                errorFailed("Gagal menyimpan data. " . $msgError);
+            } else {
+                $this->db->trans_commit();
+                responseSuccess('Berhasil menyimpan data', $response);
+            }
             //}
         }
     }
@@ -330,13 +330,13 @@ class Checklist extends CI_Controller
         $tanggalBatas = date('Y-m-d');
         $queryBatas = $this->db->query("SELECT * FROM checklist_detail WHERE 
         checklist_detail_batas_temuan_hari < '$tanggalBatas' AND checklist_detail_is_close=0");
-        if($queryBatas->num_rows()>0){
-            foreach($queryBatas->result() as $idu=>$valu){
+        if ($queryBatas->num_rows() > 0) {
+            foreach ($queryBatas->result() as $idu => $valu) {
                 $data = [
                     'checklist_detail_is_close' => '2'
                 ];
 
-                $this->db->where('checklist_detail_id',$valu->checklist_detail_id);
+                $this->db->where('checklist_detail_id', $valu->checklist_detail_id);
                 $this->db->update('checklist_detail', $data);
 
                 // Update blokir all
@@ -371,7 +371,7 @@ class Checklist extends CI_Controller
 
                 // End update blokir all
             }
-        }else{
+        } else {
             echo "tidak ada";
         }
     }
