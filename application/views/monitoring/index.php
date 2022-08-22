@@ -110,7 +110,8 @@
                                                     <td><?= date('d F Y', strtotime($m['keur'])); ?></td>
                                                     <td><?= date('d F Y', strtotime($m['pajak'])); ?></td>
                                                     <td><?= $m['status'];?></td>
-                                                    <td><a href="" data-toggle="modal" data-target="#detailModal" class="text-warning">Detail</a></td>
+                                                    <!-- <td><a href="" data-toggle="modal" data-target="#detailModal" class="text-warning">Detail</a></td> -->
+                                                    <td><a href="javascript:;" class="text-warning btn-detail" data-id="<?= $m['id']?>">Detail</a></td>
                                                 </tr>
                                             <?php } ?>
                                             <?php $i++; ?>
@@ -169,5 +170,62 @@
         setTimeout(function() {
             location.reload();
         }, 50000);
+
+        $('.btn-detail').on('click', function(){
+            var id = $(this).data('id');
+
+            $.ajax({
+                url: "<?= base_url(); ?>" + 'monitoring/get_detail',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                beforeSend: function(xhr) {
+                },
+                success: function(response) {
+                    //console.log(response);
+                    var _html = ``;
+
+                    _html += `
+                        <table class="table">
+                            <tr>
+                                <td>Nopol</td>
+                                <td>: ${response.data.nopol}</td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>: ${response.data.status}</td>
+                            </tr>
+                            <tr>
+                                <td>Temuan</td>
+                                <td>: </td>
+                            </tr>`;
+
+                    console.log(response.data.checklist_detail);
+                    
+                    if (response.data.checklist_detail) {
+                        $.each(response.data.checklist_detail, function(idx, obj){
+                            _html += `
+                                <tr>
+                                    <td></td>
+                                    <td>- ${obj.checklist_detail_temuan}</td>
+                                </tr>
+                            `;
+                        });
+                    }
+
+                    _html += `
+                        </table>
+                    `;
+
+                    $('#detailModal').find('.modal-body').html(_html);
+                    $('#detailModal').modal('show');
+                },
+                error(xhr, status, error) {
+                },
+                complete(xhr, status) {
+                }
+            });
+        });
     })
 </script>

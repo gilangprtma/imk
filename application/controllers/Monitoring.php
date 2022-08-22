@@ -28,4 +28,44 @@ class Monitoring extends CI_Controller
         $this->load->view('monitoring/index', $data);
         $this->load->view('template/footer');
     }
+
+    public function get_detail() 
+    {
+        $response = array();
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+
+        $sql = $this->db->query("
+            SELECT 
+                checklist.*,
+                nopol, 
+                status
+            FROM checklist 
+            JOIN mobiltanki ON id = checklist_mobiltanki_id
+            WHERE 1 
+            AND checklist_mobiltanki_id = $id 
+            ORDER BY checklist_created_datetime DESC 
+            LIMIT 1
+        ");
+
+        if ($sql->num_rows() > 0) {
+            $response = $sql->row();
+
+            $checklist_detail = array();
+
+            $sql_get_detail = $this->db->query("
+                SELECT *
+                FROM checklist_detail
+                WHERE 1 
+                AND checklist_detail_checklist_id = $response->checklist_id
+            ");
+
+            if ($sql_get_detail->num_rows() > 0) {
+                $checklist_detail = $sql_get_detail->result();
+            }
+
+            $response->checklist_detail = $checklist_detail;
+        }
+
+        responseSuccess('Berhasil mendapatkan data', $response);
+    }
 }
