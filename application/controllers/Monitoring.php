@@ -38,7 +38,7 @@ class Monitoring extends CI_Controller
             SELECT 
                 checklist.*,
                 nopol, 
-                status
+                checklist_is_close
             FROM checklist 
             JOIN mobiltanki ON id = checklist_mobiltanki_id
             WHERE 1 

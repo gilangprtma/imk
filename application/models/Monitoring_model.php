@@ -5,7 +5,9 @@ class Monitoring_model extends CI_Model
 {
     public function getListMobil()
     {
-        $query = "SELECT * FROM `mobiltanki` ORDER BY `id` DESC";
+        $query = "SELECT * FROM `mobiltanki` 
+        JOIN checklist ON mobiltanki.id = checklist.checklist_mobiltanki_id
+        ORDER BY checklist_id DESC";
 
         //$this->db->order_by('id', 'ASC');
         //return $this->db->from('mobiltanki')
@@ -29,14 +31,14 @@ class Monitoring_model extends CI_Model
 
     public function mtReady()
     {
-        $query = $this->db->query('SELECT * FROM mobiltanki WHERE status="Ready"');
+        $query = $this->db->query('SELECT * FROM mobiltanki');
         $ready = $query->num_rows();
         return $ready;
     }
 
     public function mtOff()
     {
-        $query = $this->db->query('SELECT * FROM mobiltanki WHERE status="Off"');
+        $query = $this->db->query('SELECT * FROM mobiltanki');
         $ready = $query->num_rows();
         return $ready;
     }
